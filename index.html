@@ -102,32 +102,27 @@
 
           /* PUT ANY CHANGES TO THE JAVASCRIPT HERE  */
           
-          // get references to the canvases and their contexts
-var c1 = document.getElementById("canvas1");
-var ctx1 = canvas1.getContext("2d");
-var c2 = document.getElementById("canvas2");
-var ctx2 = canvas2.getContext("2d");
 
 // load the image onto the first canvas
 var img = new Image();
 img.onload = function() {
-  ctx1.drawImage(img, 0, 0);
+  context1.drawImage(img, 0, 0);
 };
 img.src = "path/to/image.jpg";
 
 // display only the blue color of the image on the second canvas
-var imageData = ctx1.getImageData(0, 0, canvas1.width, canvas1.height);
+var imageData = context1.getImageData(0, 0, canvas1.width, canvas1.height);
 var data = imageData.data;
 for (var i = 0; i < data.length; i += 4) {
   // set red and green values to 0, keep blue value
   data[i] = 0;
   data[i + 1] = 0;
 }
-ctx2.putImageData(imageData, 0, 0);
+context2.putImageData(imageData, 0, 0);
 
 // add identifying text to the second canvas
-ctx2.font = "20px Arial";
-ctx2.fillText("Blue Color Only", 10, 30);
+context2.font = "20px Arial";
+context2.fillText("Blue Color Only", 10, 30);
           
         } // end of img.onload
         
@@ -158,14 +153,23 @@ ctx2.fillText("Blue Color Only", 10, 30);
       </div>
       <div id="messageDisplayArea"></div>
       
-      <canvas id="myCanvas" width=600 height=500 style="border:1px solid #d3d3d3;"></canvas>
-      <script> /* This script initiates the cavas and puts the text on the canvas "myCanvas" */
-        var canvas = document.getElementById('myCanvas');
+      <canvas id="myCanvas1" width=600 height=500 style="border:1px solid #d3d3d3;"></canvas>
+      <script> /* This script initiates the cavas and puts the text on the canvas "myCanvas1" */
+        var canvas = document.getElementById('myCanvas1');
         var context = canvas.getContext("2d");
         context.font = '20pt Calibri';
         context.fillStyle = "black";
         context.fillText("Original image will go here", 10, 20);
       </script>
+     
+     <canvas id="myCanvas2" width=600 height=500 style="border:1px solid #d3d3d3;"></canvas>
+     <script> /* This script initiates the cavas and puts the text on the canvas "myCanvas2" */
+        var canvas = document.getElementById('myCanvas2');
+        var context = canvas.getContext("2d");
+        context.font = '20pt Calibri';
+        context.fillStyle = "black";
+        context.fillText("Processed image will go here", 10, 20);
+     </script>
 
     </div><!-- /content -->
     <div data-role="footer" data-position="fixed">
