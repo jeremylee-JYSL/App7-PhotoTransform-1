@@ -24,10 +24,10 @@
   http://stackoverflow.com/questions/11929099/html5-canvas-drawimage-ratio-bug-ios
   
   Brief Description of Goal of Code:
-  Load image in one canvas and load again 
+  Load user's image in one canvas and display only the blue intensities of each pixel on another 
  
   Known Issues:
-  None 
+  None
 -->
 
  <head>
@@ -47,7 +47,7 @@
 */
  function detectVerticalSquash(img) {
   var iw = img.naturalWidth, ih = img.naturalHeight;
-  var canvas = document.createElement('myCanvas1');
+  var canvas = document.createElement('canvas');
   canvas.width = 1;
   canvas.height = ih;
   var ctx = canvas.getContext('2d');
@@ -101,23 +101,22 @@
           /*  ++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 
           /* PUT ANY CHANGES TO THE JAVASCRIPT HERE  */
-          
-
-var canvas2 = document.getElementById('myCanvas2');
+          /*These variables must be used to implement the second canvas and receive context.*/
+          var canvas2 = document.getElementById('myCanvas2');
           var context2 = canvas2.getContext("2d");
          
           /*The following variables grab image data from the canvas so it can be modified down-the-line*/
           var imageData = context.getImageData(0, 0, 600, 500);
           var data = imageData.data;
          
-          /*To modify all pixels, we have to iterate through the stored array data, then change all of the data to blues.*/
+          /*To modify all pixels, we have to iterate through the stored array data, */
           for(var i = 0; i < data.length; i+= 4) {
            //Create a "red" , "green" , and "blue" variable to store all pixels that correspond to those colors.
            var red = data[i];
            var green = data[i + 1];
            var blue = data[i + 2];
          
-           //Set both red and green variables to 0 so only blue is shown.
+           //Then, set both red and green variables to 0 so only blue is shown.
            data[i] = 0;
            data[i + 1] = 0;
            data[i + 2] = blue;
@@ -155,23 +154,25 @@ var canvas2 = document.getElementById('myCanvas2');
       </div>
       <div id="messageDisplayArea"></div>
       
-      <canvas id="myCanvas1" width=600 height=500 style="border:1px solid #d3d3d3;"></canvas>
-      <script> /* This script initiates the cavas and puts the text on the canvas "myCanvas1" */
-        var canvas = document.getElementById('myCanvas1');
+     <!--First Canvas (Load Image)-->
+      <canvas id="myCanvas" width=600 height=500 style="border:1px solid #d3d3d3;"></canvas>
+      <script> /* This script initiates the canvas and puts the text on the canvas "myCanvas" */
+        var canvas = document.getElementById('myCanvas');
         var context = canvas.getContext("2d");
         context.font = '20pt Calibri';
         context.fillStyle = "black";
         context.fillText("Original image will go here", 10, 20);
       </script>
-     
-     <canvas id="myCanvas2" width=600 height=500 style="border:1px solid #d3d3d3;"></canvas>
-     <script> /* This script initiates the cavas and puts the text on the canvas "myCanvas2" */
-        var canvas = document.getElementById('myCanvas2');
-        var context = canvas.getContext("2d");
-        context.font = '20pt Calibri';
-        context.fillStyle = "black";
-        context.fillText("Processed image will go here", 10, 20);
-     </script>
+
+     <!--Second Canvas (Canvas for Blue Image)-->
+      <canvas id="myCanvas2" width=600 height=500 style="border:1px solid #d3d3d3;"></canvas>
+      <script> /* This script initiates the canvas and puts the text on the canvas "myCanvas2". This is directly copied from above. */
+        var canvas2 = document.getElementById('myCanvas2');
+        var context2 = canvas.getContext("2d");
+        context2.font = '20pt Calibri';
+        context2.fillStyle = "black";
+        context2.fillText("Blue image will go here", 10, 20);
+      </script>
 
     </div><!-- /content -->
     <div data-role="footer" data-position="fixed">
